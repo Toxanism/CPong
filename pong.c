@@ -1,24 +1,30 @@
 #include <stdio.h>
+#include <conio.h>
+#include <unistd.h>
 
 #define bool int
 #define true 1
 #define false 0
 
 void draw(int X_border, int Y_border);
+void movement();
 
-const int X_player1 = 2;
+int X_player1 = 2;
 int Y_player1 = 20;
 
 const int X_player2 = 39;
 int Y_player2 = 20;
 
-int main()
-{
+char input;
+
+int main(){
   bool Is_alive = true;
   while(Is_alive != false){
+    usleep(25);
+    system("cls");
+    movement();
     draw(40, 40);
-    Is_alive = false;
-  }
+ }
   return 0;
 }
 
@@ -46,3 +52,22 @@ void draw(int X_border, int Y_border){
   }
   printf("\n");
 }
+
+void movement(){
+  if (kbhit()){
+    input = _getch();
+    switch (input){
+    case 'w':
+      Y_player1--;
+      break;
+    case 's':
+      Y_player1++;
+      break;
+    default :
+      break;
+      
+    }
+  }
+}
+  
+  
