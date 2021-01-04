@@ -8,12 +8,19 @@
 
 void draw(int X_border, int Y_border);
 void movement();
+void ball_movement();
 
-int X_player1 = 2;
+const int X_player1 = 2;
 int Y_player1 = 20;
 
 const int X_player2 = 39;
 int Y_player2 = 20;
+
+int X_ball = 20;
+int Y_ball = 20;
+
+int X_flag = -1;
+int Y_flag = 0;
 
 char input;
 
@@ -23,6 +30,7 @@ int main(){
     usleep(25);
     system("cls");
     movement();
+    ball_movement();
     draw(40, 40);
  }
   return 0;
@@ -40,6 +48,9 @@ void draw(int X_border, int Y_border){
       }
       else if ((x == X_player1 && y == Y_player1) || (x == X_player2 && y == Y_player2)){
 	printf("||");
+      }
+      else if (x == X_ball && y == Y_ball){
+	printf("@ ");
       }
       else{
 	printf("  ");
@@ -65,9 +76,20 @@ void movement(){
       break;
     default :
       break;
-      
     }
   }
 }
-  
-  
+
+void ball_movement(){
+  if ((X_player1 == X_ball) && (Y_player1 == Y_ball)){
+      X_flag = 1;
+      Y_flag = 1;
+    }
+    if (X_flag == 1 && Y_flag == 1){
+      X_ball++;
+      Y_ball++;
+    }
+    if (X_flag == -1 && Y_flag == 0){
+      X_ball--;
+    }
+}
