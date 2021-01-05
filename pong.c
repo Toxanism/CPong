@@ -2,10 +2,6 @@
 #include <conio.h>
 #include <unistd.h>
 
-#define bool int
-#define true 1
-#define false 0
-
 void draw(int X_border, int Y_border);
 void movement();
 void ball_movement();
@@ -22,11 +18,11 @@ int Y_ball = 20;
 int X_flag = -1;
 int Y_flag = 0;
 
-char input;
+char input = ' ';
 
 int main(){
-  bool Is_alive = true;
-  while(Is_alive != false){
+  int Is_alive = 1;
+  while(Is_alive != 0){
     usleep(25);
     system("cls");
     movement();
