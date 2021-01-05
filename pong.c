@@ -6,6 +6,10 @@ void draw(int X_border, int Y_border);
 void movement();
 void ball_movement();
 
+/*
+turn the player's axes into an array so the padel can be bigger
+*/
+
 const int X_player1 = 2;
 int Y_player1 = 20;
 
@@ -16,7 +20,7 @@ int X_ball = 20;
 int Y_ball = 20;
 
 int X_flag = -1;
-int Y_flag = 0;
+int Y_flag = -1;
 
 char input = ' ';
 
@@ -77,42 +81,14 @@ void movement(){
 }
 
 void ball_movement(){
-  /*Finish all conditions for the ball movement with the borders 
-    and try to switch it to switch cases*/
-  if ((X_player1 == X_ball) && (Y_player1 == Y_ball)){
-      X_flag = 1;
-      Y_flag = 1;
-  }
-  if ((X_player2 == X_ball) && (Y_player2 == Y_ball)){
-      X_flag = -1;
-      Y_flag = -1;
-  }
-  if (Y_ball > 39){
-    X_flag = 1;
-    Y_flag = -1;
-  }
+  /*
+    Finish all conditions for the ball movement with the borders 
+    and try to switch it to switch cases
   
-  if (Y_ball < 1){
-    X_flag = 1;
-    Y_flag = 1;
-  }
-    if (X_flag == 1 && Y_flag == 1){
-      X_ball++;
-      Y_ball++;
-    }
-    if (X_flag == -1 && Y_flag == 1){
-      X_ball--;
-      Y_ball++;
-    }
-    if (X_flag == 1 && Y_flag == -1){
-      X_ball++;
-      Y_ball--;
-    }
-    if (X_flag == -1 && Y_flag == -1){
-      X_ball--;
-      Y_ball--;
-    }
-    if (X_flag == -1 && Y_flag == 0){
-      X_ball--;
-    }
+    Use a mathmatical equation that takes in the move flag condition 
+    and adds them together to make a simple move condition with the added
+    move variables so it may better be put inside a switch statement. 
+
+    make the plater padel bigger 
+  */
 }
