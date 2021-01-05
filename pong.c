@@ -77,13 +77,40 @@ void movement(){
 }
 
 void ball_movement(){
+  /*Finish all conditions for the ball movement with the borders 
+    and try to switch it to switch cases*/
   if ((X_player1 == X_ball) && (Y_player1 == Y_ball)){
       X_flag = 1;
       Y_flag = 1;
-    }
+  }
+  if ((X_player2 == X_ball) && (Y_player2 == Y_ball)){
+      X_flag = -1;
+      Y_flag = -1;
+  }
+  if (Y_ball > 39){
+    X_flag = 1;
+    Y_flag = -1;
+  }
+  
+  if (Y_ball < 1){
+    X_flag = 1;
+    Y_flag = 1;
+  }
     if (X_flag == 1 && Y_flag == 1){
       X_ball++;
       Y_ball++;
+    }
+    if (X_flag == -1 && Y_flag == 1){
+      X_ball--;
+      Y_ball++;
+    }
+    if (X_flag == 1 && Y_flag == -1){
+      X_ball++;
+      Y_ball--;
+    }
+    if (X_flag == -1 && Y_flag == -1){
+      X_ball--;
+      Y_ball--;
     }
     if (X_flag == -1 && Y_flag == 0){
       X_ball--;
