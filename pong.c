@@ -5,24 +5,20 @@
 void draw(int X_border, int Y_border);
 void movement();
 void ball_movement();
-
-/*
-turn the player's axes into an array so the padel can be bigger
-*/
+void AI_movement();
 
 const int X_player1 = 2;
-int Y_player1 = 20;
+int Y_player1[5] = {18,19,20,21,22};
 
 const int X_player2 = 39;
-int Y_player2 = 20;
+int Y_player2[5] = {18,19,20,21,22};
 
-int X_ball = 20;
-int Y_ball = 20;
-
-int X_flag = -1;
-int Y_flag = -1;
+double X_ball = 20;
+double Y_ball = 20;
 
 char input = ' ';
+
+int ball_flag = 1;
 
 int main(){
   int Is_alive = 1;
@@ -43,16 +39,26 @@ void draw(int X_border, int Y_border){
   printf("\n");
   for (int y = 1; y < Y_border + 1; y++){
     for (int x = 1; x < X_border + 1; x++){
+      int found = 0;
+      for(int i = 0; i < 5; i++){
+	if (x == X_player1 && y == Y_player1[i]){
+	   printf("||");
+	   found = 1;
+	  }
+	if (x == X_player2 && y == Y_player2[i]){
+	  printf("||");
+	  found = 1;
+	}
+      }
       if (x == 1 || x == X_border || x == X_border/2){
 	printf("# ");
-      }
-      else if ((x == X_player1 && y == Y_player1) || (x == X_player2 && y == Y_player2)){
-	printf("||");
+	found = 1;
       }
       else if (x == X_ball && y == Y_ball){
 	printf("@ ");
+	found = 1;
       }
-      else{
+      else if (found != 1){
 	printf("  ");
       }
     }
@@ -69,10 +75,14 @@ void movement(){
     input = _getch();
     switch (input){
     case 'w':
-      Y_player1--;
+      for(int i = 0; i < 5; i++){
+	Y_player1[i]--;
+      }
       break;
     case 's':
-      Y_player1++;
+      for(int i = 0; i < 5; i++){
+	Y_player1[i]++;
+      }
       break;
     default :
       break;
@@ -81,14 +91,52 @@ void movement(){
 }
 
 void ball_movement(){
-  /*
-    Finish all conditions for the ball movement with the borders 
-    and try to switch it to switch cases
+  //player ball collision
+  if((X_ball == X_player1 + 1) && ball_flag == 1){
+    ball_flag = 3;
+  }
+  if((X_ball == X_player1 + 1) && ball_flag == 2){
+    ball_flag = 4;
+  }
+  if((X_ball == X_player2 + 1) && ball_flag == 3){
+    ball_flag = 1;
+  }
+  if((X_ball == X_player2 + 1) && ball_flag == 4){
+    ball_flag = 2;
+  }
   
-    Use a mathmatical equation that takes in the move flag condition 
-    and adds them together to make a simple move condition with the added
-    move variables so it may better be put inside a switch statement. 
-
-    make the plater padel bigger 
-  */
+  // Border collision
+  if (Y_ball < 1 && ball_flag == 1){
+    ball_flag = 2;
+  }
+  if (Y_ball < 1 && ball_flag == 3){
+    ball_flag = 4;
+  }
+  if (Y_ball > 39 && ball_flag == 2){
+    ball_flag = 1;
+  }
+  if (Y_ball > 39 && ball_flag == 4){
+    ball_flag = 3;
+  }
+  //ball move condition
+  switch(ball_flag)
+    {
+    case 1:
+      Y_ball -= 0.5;
+      X_ball -= 0.5;
+      break;
+    case 2:
+      Y_ball += 0.5;
+      X_ball -= 0.5;
+      break;
+    case 3:
+      Y_ball -= 0.5;
+      X_ball += 0.5;
+      break;
+    case 4:
+      Y_ball += 0.5;
+      X_ball += 0.5;
+    default:
+      break;
+    }
 }
