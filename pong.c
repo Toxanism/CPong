@@ -8,27 +8,30 @@ void ball_movement();
 void AI_movement();
 
 const int X_player1 = 2;
-int Y_player1[5] = {18,19,20,21,22};
+double Y_player1[5] = {18,19,20,21,22};
 
-const int X_player2 = 39;
-int Y_player2[5] = {18,19,20,21,22};
+const int X_player2 = 29;
+double Y_player2[5] = {18,19,20,21,22};
 
-double X_ball = 20;
-double Y_ball = 20;
+double X_ball = 15;
+double Y_ball = 15;
 
 char input = ' ';
 
 int ball_flag = 1;
 
+int Is_alive = 1;
+
 int main(){
-    int Is_alive = 1;
     while(Is_alive != 0){
         usleep(25);
         system("cls");
         movement();
         ball_movement();
-        draw(40, 40);
+	AI_movement();
+        draw(30, 30);
     }
+    printf("\n\n\n##########GAME OVER##########\n\n\n");
     return 0;
 }
 
@@ -92,17 +95,21 @@ void movement(){
 
 void ball_movement(){
     //player ball collision
-    if((X_ball == X_player1 + 1) && ball_flag == 1){
+    
+    for (int i = 0; i < 5; i++){
+      if((X_ball == X_player1 + 1 && Y_ball == Y_player1[i]) && ball_flag == 1){
         ball_flag = 3;
-    }
-    if((X_ball == X_player1 + 1) && ball_flag == 2){
+      }
+      if((X_ball == X_player1 + 1 && Y_ball == Y_player1[i]) && ball_flag == 2){
         ball_flag = 4;
-    }
-    if((X_ball == X_player2 + 1) && ball_flag == 3){
+      }
+      if((X_ball == X_player2 - 1 && Y_ball == Y_player2[i]) && ball_flag == 3){
         ball_flag = 1;
-    }
-    if((X_ball == X_player2 + 1) && ball_flag == 4){
+      }
+      if((X_ball == X_player2 - 1 && Y_ball == Y_player2[i]) && ball_flag == 4){
         ball_flag = 2;
+      }
+      
     }
     
     
@@ -113,12 +120,19 @@ void ball_movement(){
     if (Y_ball < 1 && ball_flag == 3){
         ball_flag = 4;
     }
-    if (Y_ball > 39 && ball_flag == 2){
+    if (Y_ball > 30 && ball_flag == 2){
         ball_flag = 1;
     }
-    if (Y_ball > 39 && ball_flag == 4){
+    if (Y_ball > 30 && ball_flag == 4){
         ball_flag = 3;
     }
+    if (X_ball < 1){
+      Is_alive = 0;
+    }
+    if (X_ball > 29){
+	Is_alive = 0;
+      }
+      
     //ball move condition
     switch(ball_flag)
     {
@@ -141,3 +155,19 @@ void ball_movement(){
         break;
     }
 }
+
+void AI_movement(){
+  if (Y_ball > Y_player2[2]){
+      for(int i = 0; i < 5; i++){
+	Y_player2[i] += 0.5;
+      }
+      
+    }
+    if (Y_ball < Y_player2[2]){
+      for(int i = 0; i < 5; i++){
+	Y_player2[i] -= 0.5;
+      }
+      
+    }
+}
+  
