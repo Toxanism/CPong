@@ -95,7 +95,6 @@ void movement(){
 
 void ball_movement(){
     //player ball collision
-    
     for (int i = 0; i < 5; i++){
       if((X_ball == X_player1 + 1 && Y_ball == Y_player1[i]) && ball_flag == 1){
         ball_flag = 3;
@@ -109,9 +108,7 @@ void ball_movement(){
       if((X_ball == X_player2 - 1 && Y_ball == Y_player2[i]) && ball_flag == 4){
         ball_flag = 2;
       }
-      
     }
-    
     
     // Border collision
     if (Y_ball < 1 && ball_flag == 1){
@@ -167,7 +164,5 @@ void AI_movement(){
       for(int i = 0; i < 5; i++){
 	Y_player2[i] -= 0.5;
       }
-      
     }
 }
-  
