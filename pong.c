@@ -158,7 +158,6 @@ void AI_movement(){
       for(int i = 0; i < 5; i++){
 	Y_player2[i] += 0.5;
       }
-      
     }
     if (Y_ball < Y_player2[2]){
       for(int i = 0; i < 5; i++){
